@@ -20,7 +20,7 @@ void setup() {
 }
 
 void loop() {
-  readSensors():
+  readSensors();
   sendSensorDataToUnity();
 
 }
@@ -28,11 +28,16 @@ void loop() {
 void readSensors(){
   //always off or on so digitalRead
   switchVal = digitalRead(switchPin);
-  potentiometerVal = analogRead(pontentiometerPin);
+  potentiometerVal = analogRead(potentiometerPin);
 }
 
 void sendSensorDataToUnity(){
-  Serial.print(switchVal);
-  Serial.print(',');
-  Serial.println(potentiometerVal);
+  //Send Data
+  if (sendToUnityTimer > sendToUnityInterval){
+    sendToUnityTimer = 0; //Reset Timer
+    Serial.print(switchVal);
+    Serial.print(',');
+    Serial.println(potentiometerVal);
+  }
+ 
 }
